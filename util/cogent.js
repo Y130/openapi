@@ -7,6 +7,7 @@ var Netrc = require('netrc')
 var write = require('write-to')
 var status = require('statuses')
 var rawBody = require('raw-body')
+var qs = require('querystring')
 var debug = require('debug')('cogent')
 
 var inspect = util.inspect
