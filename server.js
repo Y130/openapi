@@ -6,6 +6,7 @@ let cors         = require('koa-cors');
 let fs           = require('fs');
 let mysql        = require('mysql-co');
 let bodyParser   = require('koa-bodyparser');
+let _            = require('underscore');
 let api          = require('./util/api');
 
 let app = module.exports = koa();
@@ -39,15 +40,16 @@ let config = require('./config/db-'+app.env+'.json');
 GLOBAL.connectionPool = mysql.createPool(config.db); 
 
 app.use(function *(next){
-  if (this.method !== 'POST' && this.method !== 'GET'){
-    return yield next;
+  var method = this.method;
+  if (method !== 'POST' && method !== 'GET'){
+    yield next;
+  }else{
+    var params = method == 'POST' ? this.request.body : this.request.query;
+    if(!_.isEmpty(params)){
+      this.body = yield api.exchange(method, params);
+    }
+    yield next;
   }
-
-  var method = this.method
-  , params = method == 'POST' ? this.request.body : this.request.query
-  ;
-
-  this.body = yield api.exchange(method, params);
 });
 
 app.on('error', function(err){
