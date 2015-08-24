@@ -1,5 +1,3 @@
-var qs = require('querystring');
-var url = require('url');
 var _ = require('underscore');
 var ApiError = require('../models/apierror');
 
