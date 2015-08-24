@@ -2,8 +2,9 @@ var _ = require('underscore');
 var ApiError = require('../models/apierror');
 
 var request = require('./cogent').extend({
-  'json'   :true,
-  'gunzip' :true,
+  'bugger' : true,
+  'json'   : true,
+  'gunzip' : true,
   'timeout': 10000,
   'headers': {'content-type': 'application/json'}
 });
