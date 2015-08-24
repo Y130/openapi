@@ -64,7 +64,6 @@ function extend(defaults) {
           headers['transfer-encoding'] = 'chunked';
           if(params){
             paramsstr = JSON.stringify(params);
-            headers['content-length'] = paramsstr.length;
           }
           break;
         default:
